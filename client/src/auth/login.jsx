@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useContext } from "react";
-import AuthContext from "../context/auth_context";
+import { authContext } from "../auth_context";
 import "./login.scss";
 
 const Login = () => {
-	const [, setAuth] = useContext(AuthContext);
+	const [, setAuth] = useContext(authContext);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [passwordIsValid, setPasswordIsVald] = useState(false);

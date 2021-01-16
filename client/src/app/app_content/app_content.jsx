@@ -1,5 +1,5 @@
 import React from "react";
-import AgencyPage from "./agency/agency_page";
+import AgencyPage from "../agency/agency_page";
 import './app_content.scss'
 
 function switcher(index) {

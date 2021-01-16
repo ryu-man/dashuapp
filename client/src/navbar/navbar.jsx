@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import AuthContext from "./context/auth_context";
+import { authContext } from "../auth_context";
 import "./navbar.scss";
 
 const Navbar = () => {
-	const [auth] = useContext(AuthContext);
+	const [auth] = useContext(authContext);
 
 	return (
 		<nav className="navbar">

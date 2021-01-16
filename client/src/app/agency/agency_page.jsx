@@ -6,10 +6,9 @@ import React, {
 	useState,
 } from "react";
 import { format } from "date-fns";
-import AuthContext from "../../context/auth_context";
+import { authContext } from "../../auth_context";
 import jquery from "jquery";
 
-import "../page.scss";
 import "./agency_page.scss";
 import { API } from "./agency_api";
 
@@ -314,7 +313,7 @@ const AgencyPage = ({}) => {
 	const [showModal, setShowModal] = useState(false);
 	const [showConfModal, setShowConfModal] = useState(false);
 	const [selectedAgency, setSelectedAgency] = useState({});
-	const [auth] = useContext(AuthContext);
+	const [auth] = useContext(authContext);
 	const onAddAgencyhandler = () => setShowModal(true);
 
 	useEffect(() => {

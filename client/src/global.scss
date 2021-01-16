@@ -3,20 +3,25 @@
 	--forgroundColor: #fff;
 	--primaryColor: #126cfb;
 }
-.row {
-}
-.column {
-}
-.row.gap {
-}
-.column.gap {
-}
 html,
 body,
-.dashu {
+#dashu-app {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
+}
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+		monospace;
 }
 i.bi {
 	display: inline-flex;
