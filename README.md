@@ -4,7 +4,7 @@ This project is an implementation of Dashu app both backend and frontend
 
 ## LOGIN UI
 
-User must be authenticated to be able to access the app
+User must be authenticated to access the app
 
 ## LIST OF AGENCIES
 
