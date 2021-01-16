@@ -1,0 +1,75 @@
+$textColor: #000;
+$padding: 1em;
+
+.agency-page.page {
+	> .header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1em;
+		padding: $padding;
+		background-color: #edf1f3;
+
+		> .title {
+			color: $textColor;
+			font-weight: 700;
+			font-size: 1.2em;
+			width: 16vw;
+
+			> .sub {
+				margin-top: 0.2em;
+				color: lighten($color: $textColor, $amount: 70);
+				font-weight: 400;
+				font-size: 0.6em;
+			}
+		}
+		> .filter-input{
+			position: relative;
+			flex: 1;
+			select{
+				padding-left: 2em;
+			}
+			> i {
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				width: 2em;
+			}
+		}
+		> .search-input {
+			position: relative;
+			input{
+				padding-right: 2em;
+			}
+			> i {
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				width: 2em;
+			}
+		}
+	}
+	> table {
+		th{
+			border-top: none;
+		}
+		input{
+			width: auto;
+		}
+		td.actions i{
+			color: var(--primaryColor);
+		}
+	}
+	input[type=checkbox]{
+		display: inline-block;
+		border: 1px solid #000;
+		width: 1em;
+		height: 1em;
+	}
+	.dashu.checkbox{
+		display: inline;
+		padding-right: 16px;
+	}
+}

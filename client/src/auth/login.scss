@@ -1,0 +1,66 @@
+.login {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	height: 100%;
+	.side {
+		border-right: 2px solid #d6d6d6;
+		box-shadow: 0 2px 4px #cccccc;
+		padding: 1em 15%;
+		width: 36vw;
+		font-weight: 500;
+
+		.app-name {
+			padding: 1em 0;
+			font-size: 4em;
+			font-weight: 700;
+			color: var(--primaryColor);
+			text-align: center;
+		}
+		/* form {
+			display: flex;
+			flex-direction: column;
+			.field {
+				padding: 1em 0;
+				display: flex;
+				flex-direction: column;
+				label {
+					font-size: 0.9em;
+					color: #abb6c3;
+				}
+				input {
+				}
+				button {
+					width: 100%;
+				}
+
+				&.multi {
+					display: flex;
+					flex-direction: row;
+					justify-content: space-between;
+				}
+				&.options {
+                    
+					font-size: .8em;
+
+					:not(a) * {
+						color: #5a5a5a;
+					}
+				}
+			}
+		} */
+	}
+	.background {
+	}
+
+	.form {
+		.form-group {
+			&.options {
+				font-size: 0.8em;
+			}
+			> label {
+				font-size: 0.7em;
+				color: #abb6c3;
+			}
+		}
+	}
+}
