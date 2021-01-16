@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === "production") {
 // useFindAndModify to use query like "findOneAupdate"
 mongoose.set("useFindAndModify", false);
 // Connect to the Database
-mongoose.connect(process.env.DB_URI, {
+mongoose.connect(process.env.MONGO_URI, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 });
@@ -36,6 +36,6 @@ app.use((req, res, next, err) => {
 });
 
 // Start listening
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 9090, () => {
 	console.log("Dashu server started...");
 });
