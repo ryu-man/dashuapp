@@ -2,4 +2,4 @@
 /client/node_modules
 .env
 yarn.lock
-client/yarn.lock
+/client/yarn.lock
