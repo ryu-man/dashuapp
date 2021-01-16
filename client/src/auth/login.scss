@@ -27,6 +27,20 @@
 
 	.form {
 		.form-group {
+			.icon-wrapper {
+				position: relative;
+				input{
+					padding-right: 3em;
+				}
+				i{
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					width: 3em;
+					color: #CED4DA;
+				}
+			}
 			&.options {
 				font-size: 0.8em;
 			}

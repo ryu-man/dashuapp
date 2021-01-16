@@ -12,6 +12,7 @@ const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
+	const [passwordInputType, setPasswordInputType] = useState("password");
 
 	return (
 		<div className="login">
@@ -41,27 +42,46 @@ const Login = () => {
 							onBlur={(e) => {
 								const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 								if (!regex.test(e.currentTarget.value)) {
-									// alert("");
+									setError("You email does not respect email format !");
+								} else {
+									setError("");
 								}
 							}}
 							onChange={(e) => setEmail(e.currentTarget.value)}
 						/>
-						
 					</div>
-					<div className="form-group">
+
+					<div className="password form-group">
 						<label>Password</label>
+						<div className="icon-wrapper">
+
 						<input
 							className={`form-control${
 								error.length !== 0 ? " is-invalid" : ""
 							}`}
-							type="password"
+							type={passwordInputType}
 							value={password}
 							onChange={(e) => setPassword(e.currentTarget.value)}
 						/>
-						
+						{passwordInputType === "password" && (
+							<i
+								class="bi bi-eye"
+								onClick={() => setPasswordInputType("text")}
+							></i>
+						)}
+						{passwordInputType === "text" && (
+							<i
+								class="bi bi-eye-slash"
+								onClick={() => setPasswordInputType("password")}
+							></i>
+						)}
+						</div>
 					</div>
 
-					<div className="form-group" style={{marginTop:"2rem", marginBottom:"2rem"}}>
+					<div
+						className="form-group"
+						style={{ marginTop: "2rem", marginBottom: "2rem" }}
+					>
 						<button type="submit" className="col btn btn-primary">
 							Login
 						</button>
@@ -93,7 +113,7 @@ const Login = () => {
 				</form>
 			</div>
 			<div className="background-wrapper">
-				<img src="background.png"/>
+				<img src="background.png" />
 			</div>
 		</div>
 	);
