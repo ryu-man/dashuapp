@@ -3,11 +3,11 @@
 	grid-template-columns: auto 1fr;
 	height: 100%;
 	.side {
-		border-right: 2px solid #d6d6d6;
-		box-shadow: 0 2px 4px #cccccc;
-		padding: 1em 15%;
-		width: 36vw;
-		font-weight: 500;
+		box-shadow: 2px 0px 6px 0px #0000000f;
+    padding: 1em 15%;
+    width: 36vw;
+    font-weight: 500;
+    z-index: 1;
 
 		.app-name {
 			padding: 1em 0;
@@ -49,7 +49,10 @@
 			}
 		} */
 	}
-	.background {
+	.background-wrapper {
+		img{
+			width: 100%;
+		}
 	}
 
 	.form {

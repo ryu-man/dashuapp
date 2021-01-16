@@ -92,6 +92,9 @@ const Login = () => {
 					)}
 				</form>
 			</div>
+			<div className="background-wrapper">
+				<img src="background.png"/>
+			</div>
 		</div>
 	);
 };
