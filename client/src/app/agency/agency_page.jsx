@@ -1,19 +1,14 @@
-import React, {
-	useCallback,
-	useContext,
-	useEffect,
-	useRef,
-	useState,
-} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { format } from "date-fns";
 import { authContext } from "../../auth_context";
 import SelectDropdown from "../../components/select_dropdown";
-import jquery from "jquery";
+import Modal from "./agency_model";
+import DeleteConfirmationModal from "./confimation_modal";
 
 import "./agency_page.scss";
 import { API } from "./agency_api";
 
-const api = new API();
+export const api = new API();
 
 /***********************************************************************************************************************/
 
@@ -65,274 +60,16 @@ const Agency = ({
 
 /***********************************************************************************************************************/
 
-const Modal = ({
-	agency = {},
-	show,
-	onHidden,
-	onAgencyCreated,
-	onAgencyUpdated,
-}) => {
-	const [name, setName] = useState("");
-	const [address, setAddress] = useState("");
-	const [wilaya, setWilaya] = useState("");
-	const [commune, setCommune] = useState("");
-	const [phone, setPhone] = useState("");
-
-	const modalRef = useRef();
-	const submitHandler = useCallback(
-		async (e) => {
-			e.preventDefault();
-			if (agency?._id) {
-				try {
-					const data = await api.update(agency._id, {
-						name,
-						address,
-						wilaya,
-						commune,
-						phone,
-					});
-					console.log(data);
-					onAgencyUpdated?.(data);
-				} catch (err) {
-					console.log(err);
-				}
-			} else {
-				try {
-					const data = await api.create({
-						name,
-						address,
-						wilaya,
-						commune,
-						phone,
-					});
-					onAgencyCreated?.(data);
-				} catch (err) {}
-			}
-		},
-		[
-			agency,
-			name,
-			address,
-			wilaya,
-			commune,
-			phone,
-			onAgencyCreated,
-			onAgencyUpdated,
-		]
-	);
-
-	useEffect(() => {
-		commune && wilaya && setAddress(`${commune}, ${wilaya}`);
-	}, [wilaya, commune]);
-
-	useEffect(() => {
-		if (show) {
-			setName(agency?.name ?? "");
-			setAddress(agency?.address ?? "");
-			setWilaya(agency?.wilaya ?? "");
-			setCommune(agency?.commune ?? "");
-			setPhone(agency?.phone ?? "");
-			jquery(modalRef.current).modal("show");
-		} else {
-			jquery(modalRef.current).modal("hide");
-		}
-	}, [show, agency]);
-	useEffect(() => {
-		jquery(modalRef.current).on("hidden.bs.modal", function (e) {
-			onHidden();
-		});
-	}, []);
-
-	return (
-		<form className="form" onSubmit={submitHandler}>
-			<div
-				ref={modalRef}
-				className="modal"
-				tabIndex="-1"
-				role="dialog"
-				id="#exampleModal"
-			>
-				<div className="modal-dialog" role="document">
-					<div className="modal-content">
-						<div className="modal-header">
-							<h5 className="modal-title">Agency</h5>
-							<button
-								type="button"
-								className="close"
-								data-dismiss="modal"
-								aria-label="Close"
-							>
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div className="modal-body">
-							<div className="form-group">
-								<label>Name</label>
-								<input
-									type="text"
-									className={`form-control${
-										name.length === 0 ? " is-invalid" : " is-valid"
-									}`}
-									value={name}
-									required
-									onChange={(e) => setName(e.currentTarget.value)}
-								/>
-							</div>
-
-							<div className="form-group">
-								<label>Wilaya</label>
-								<input
-									type="text"
-									className={`form-control${
-										wilaya.length === 0 ? " is-invalid" : " is-valid"
-									}`}
-									value={wilaya}
-									onChange={(e) => {
-										const value = e.currentTarget.value;
-										setWilaya(value);
-									}}
-								/>
-							</div>
-							<div className="form-group">
-								<label>Commune</label>
-								<input
-									type="text"
-									className={`form-control${
-										commune.length === 0 ? " is-invalid" : " is-valid"
-									}`}
-									value={commune}
-									onChange={(e) => {
-										const value = e.currentTarget.value;
-										setCommune(value);
-									}}
-								/>
-							</div>
-							<div className="form-group">
-								<label>Address</label>
-								<input
-									type="text"
-									className={`form-control`}
-									/* className={`form-control${
-										address.length === 0 ? " is-invalid" : " is-valid"
-									}`} */
-									value={address}
-									onChange={(e) => setAddress(e.currentTarget.value)}
-								/>
-							</div>
-							<div className="form-group">
-								<label>Phone</label>
-								<input
-									type="text"
-									className={`form-control${
-										phone.length === 0 ? " is-invalid" : " is-valid"
-									}`}
-									value={phone}
-									required
-									onChange={(e) => setPhone(e.currentTarget.value)}
-								/>
-							</div>
-						</div>
-						<div className="modal-footer">
-							<button
-								type="button"
-								className="btn btn-secondary"
-								data-dismiss="modal"
-							>
-								Cancel
-							</button>
-							<button type="submit" className="btn btn-primary">
-								Save
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</form>
-	);
-};
-
-/***********************************************************************************************************************/
-
-const DeleteConfirmationModal = ({
-	agency,
-	show,
-	onHidden,
-	onAgencyDeleted,
-}) => {
-	const modalRef = useRef();
-	const submitHandler = useCallback(
-		async (e) => {
-			e.preventDefault();
-			try {
-				await api.remove(agency._id);
-				onAgencyDeleted(agency._id);
-			} catch (err) {
-				console.log(err);
-			}
-		},
-		[agency, onAgencyDeleted]
-	);
-	useEffect(() => {
-		if (show) {
-			jquery(modalRef.current).modal("show");
-		} else {
-			jquery(modalRef.current).modal("hide");
-		}
-	}, [show]);
-
-	useEffect(() => {
-		jquery(modalRef.current).on("hidden.bs.modal", function (e) {
-			onHidden();
-		});
-	}, []);
-	return (
-		<form className="form" onSubmit={submitHandler}>
-			<div ref={modalRef} className="modal" tabIndex="-1" role="dialog">
-				<div className="modal-dialog" role="document">
-					<div className="modal-content">
-						<div className="modal-header">
-							<h5 className="modal-title">Delete Agency</h5>
-							<button
-								type="button"
-								className="close"
-								data-dismiss="modal"
-								aria-label="Close"
-							>
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div className="modal-body">
-							Are you sure you want to delete <strong>"{agency.name}"</strong>{" "}
-							agency ?
-						</div>
-						<div className="modal-footer">
-							<button
-								type="button"
-								className="btn btn-secondary"
-								data-dismiss="modal"
-							>
-								Cancel
-							</button>
-							<button type="submit" className="btn btn-danger">
-								Delete
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</form>
-	);
-};
-
-/***********************************************************************************************************************/
-
-const AgencyPage = ({}) => {
+const AgencyPage = () => {
 	const [agencies, setAgencies] = useState([]);
 	const [showModal, setShowModal] = useState(false);
 	const [showConfModal, setShowConfModal] = useState(false);
 	const [selectedAgency, setSelectedAgency] = useState({});
 	const [auth] = useContext(authContext);
-	const onAddAgencyhandler = () => setShowModal(true);
+	const onAddAgencyhandler = () => {
+		// setSelectedAgency({});
+		setShowModal(true);
+	};
 
 	useEffect(() => {
 		api.setToken(auth.token);
@@ -351,9 +88,9 @@ const AgencyPage = ({}) => {
 			<Modal
 				agency={selectedAgency}
 				show={showModal}
+				api={api}
 				onHidden={() => {
 					setShowModal(false);
-					setSelectedAgency({});
 				}}
 				onAgencyCreated={(agency) => {
 					setAgencies([...agencies, agency]);
@@ -373,6 +110,7 @@ const AgencyPage = ({}) => {
 			<DeleteConfirmationModal
 				agency={selectedAgency}
 				show={showConfModal}
+				api={api}
 				onHidden={() => setShowConfModal(false)}
 				onAgencyDeleted={(id) =>
 					setAgencies(agencies.filter(({ _id }) => _id !== id))
@@ -412,6 +150,7 @@ const AgencyPage = ({}) => {
 						Add agency
 					</button>
 				</div>
+				<br />
 				<table className="table">
 					<thead>
 						<tr>
@@ -422,9 +161,10 @@ const AgencyPage = ({}) => {
 										type="checkbox"
 										onChange={(e) => {
 											setAgencies(
-												agencies.map(
-													(ag) => ((ag.selected = e.currentTarget.checked), ag)
-												)
+												agencies.map((ag) => {
+													ag.selected = e.currentTarget.checked;
+													return ag;
+												})
 											);
 										}}
 									/>

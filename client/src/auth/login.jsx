@@ -61,7 +61,7 @@ const Login = () => {
 						
 					</div>
 
-					<div className="form-group">
+					<div className="form-group" style={{marginTop:"2rem", marginBottom:"2rem"}}>
 						<button type="submit" className="col btn btn-primary">
 							Login
 						</button>

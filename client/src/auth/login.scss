@@ -4,10 +4,10 @@
 	height: 100%;
 	.side {
 		box-shadow: 2px 0px 6px 0px #0000000f;
-    padding: 1em 15%;
-    width: 36vw;
-    font-weight: 500;
-    z-index: 1;
+		padding: 1em 15%;
+		width: 36vw;
+		font-weight: 500;
+		z-index: 1;
 
 		.app-name {
 			padding: 1em 0;
@@ -16,42 +16,12 @@
 			color: var(--primaryColor);
 			text-align: center;
 		}
-		/* form {
-			display: flex;
-			flex-direction: column;
-			.field {
-				padding: 1em 0;
-				display: flex;
-				flex-direction: column;
-				label {
-					font-size: 0.9em;
-					color: #abb6c3;
-				}
-				input {
-				}
-				button {
-					width: 100%;
-				}
-
-				&.multi {
-					display: flex;
-					flex-direction: row;
-					justify-content: space-between;
-				}
-				&.options {
-                    
-					font-size: .8em;
-
-					:not(a) * {
-						color: #5a5a5a;
-					}
-				}
-			}
-		} */
 	}
 	.background-wrapper {
-		img{
+		img {
 			width: 100%;
+			height: 100%;
+			object-fit: cover;
 		}
 	}
 

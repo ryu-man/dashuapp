@@ -11,21 +11,21 @@ $padding: 1em;
 		background-color: #edf1f3;
 
 		> .title {
-			color: $textColor;
+			color: #030f33;
 			font-weight: 700;
 			font-size: 1.4em;
 			width: 16vw;
 
 			> .sub {
 				margin-top: 0.2em;
-				color: lighten($color: $textColor, $amount: 70);
+				color: #a3b0bd;
 				font-weight: 400;
 				font-size: 0.6em;
 			}
 		}
 		> .search-input {
 			position: relative;
-			input{
+			input {
 				padding-right: 3em;
 			}
 			> i {
@@ -34,28 +34,32 @@ $padding: 1em;
 				right: 0;
 				bottom: 0;
 				width: 3em;
-				color:  #ced4da;
+				color: #ced4da;
 			}
 		}
 	}
 	> table {
-		th{
+		th {
 			border-top: none;
 		}
-		input{
+		input {
 			width: auto;
 		}
-		td.actions i{
+		td.actions i {
 			color: var(--primaryColor);
 		}
+		td,
+		th {
+			padding: 1.2em 0.75rem !important;
+		}
 	}
-	input[type=checkbox]{
+	input[type="checkbox"] {
 		display: inline-block;
 		border: 1px solid #000;
 		width: 1em;
 		height: 1em;
 	}
-	.dashu.checkbox{
+	.dashu.checkbox {
 		display: inline;
 		padding-right: 16px;
 	}
