@@ -67,7 +67,7 @@ const AgencyPage = () => {
 	const [selectedAgency, setSelectedAgency] = useState({});
 	const [auth] = useContext(authContext);
 	const onAddAgencyhandler = () => {
-		// setSelectedAgency({});
+		setSelectedAgency({});
 		setShowModal(true);
 	};
 
