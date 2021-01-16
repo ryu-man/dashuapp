@@ -13,7 +13,7 @@ $padding: 1em;
 		> .title {
 			color: $textColor;
 			font-weight: 700;
-			font-size: 1.2em;
+			font-size: 1.4em;
 			width: 16vw;
 
 			> .sub {
@@ -23,31 +23,18 @@ $padding: 1em;
 				font-size: 0.6em;
 			}
 		}
-		> .filter-input{
-			position: relative;
-			flex: 1;
-			select{
-				padding-left: 2em;
-			}
-			> i {
-				position: absolute;
-				top: 0;
-				left: 0;
-				bottom: 0;
-				width: 2em;
-			}
-		}
 		> .search-input {
 			position: relative;
 			input{
-				padding-right: 2em;
+				padding-right: 3em;
 			}
 			> i {
 				position: absolute;
 				top: 0;
 				right: 0;
 				bottom: 0;
-				width: 2em;
+				width: 3em;
+				color:  #ced4da;
 			}
 		}
 	}

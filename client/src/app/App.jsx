@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Navbar from "../navbar/navbar";
 import Sidebar from "../sidebar/sidebar";
-import AppContent from "./app_content/app_content";
+import Switcher from "./switcher/switcher";
 
 import "./App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -13,7 +13,7 @@ function App() {
 	return (
 		<div className="App">
 			<Sidebar index={index} setIndex={setIndex} />
-			<AppContent index={index}></AppContent>
+			<Switcher index={index}></Switcher>
 			<Navbar />
 		</div>
 	);

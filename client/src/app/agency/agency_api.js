@@ -57,7 +57,7 @@ export class API {
             method: "DELETE",
         })
         if (res.status === 200) {
-            return (await res.json())
+            return
         }
         throw new Error("Delete agency failed !")
     }

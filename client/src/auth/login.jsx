@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { useContext } from "react";
 import { authContext } from "../auth_context";
+import AuthAPI from "./auth_api";
+
 import "./login.scss";
+
+const authAPI = new AuthAPI();
 
 const Login = () => {
 	const [, setAuth] = useContext(authContext);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [passwordIsValid, setPasswordIsVald] = useState(false);
+	const [error, setError] = useState("");
 
 	return (
 		<div className="login">
@@ -16,16 +20,22 @@ const Login = () => {
 				<form
 					className="form"
 					action=""
-					onSubmit={(e) => {
+					onSubmit={async (e) => {
 						e.preventDefault();
-
-						loginApi();
+						try {
+							const authData = await authAPI.login(email, password);
+							setAuth(authData);
+						} catch (err) {
+							setError(err.message);
+						}
 					}}
 				>
-					<div class="form-group">
+					<div className="form-group">
 						<label>Email</label>
 						<input
-							className="form-control"
+							className={`form-control${
+								error.length !== 0 ? " is-invalid" : ""
+							}`}
 							type="email"
 							value={email}
 							onBlur={(e) => {
@@ -36,21 +46,19 @@ const Login = () => {
 							}}
 							onChange={(e) => setEmail(e.currentTarget.value)}
 						/>
-						{/* <small id="emailHelp" class="form-text text-muted">
-									We'll never share your email with anyone else.
-								</small> */}
+						
 					</div>
-					<div class="form-group">
+					<div className="form-group">
 						<label>Password</label>
 						<input
-							className={`form-control${passwordIsValid ? " is-valid" : ""}`}
+							className={`form-control${
+								error.length !== 0 ? " is-invalid" : ""
+							}`}
 							type="password"
 							value={password}
 							onChange={(e) => setPassword(e.currentTarget.value)}
 						/>
-						<small class="form-text text-muted invalid-feedback">
-							We'll never share your email with anyone else.
-						</small>
+						
 					</div>
 
 					<div className="form-group">
@@ -76,36 +84,16 @@ const Login = () => {
 							</div>
 						</div>
 					</div>
+
+					{error.length !== 0 && (
+						<div className="alert alert-danger" role="alert">
+							{error}
+						</div>
+					)}
 				</form>
 			</div>
 		</div>
 	);
-
-	async function loginApi() {
-		// try{
-		const res = await fetch("/login", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ email, password }),
-		});
-
-		setAuth(await res.json());
-
-		/* 	switch(res.status){
-				case 200:
-					break;
-				case 404:
-					break
-	
-					default:
-	
-			} */
-		/* }catch(err){
-			console.log(err)
-		} */
-	}
 };
 
 export default Login;

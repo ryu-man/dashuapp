@@ -10,17 +10,17 @@ const Navbar = () => {
 			<div className="text app-name">Dashu</div>
 			<div className="options">
 				<div className="user">
-					<class className="avatar">
+					<div className="avatar">
 						{auth?.avatar ? (
-							<img class="" src="" alt="" />
+							<img className="" src="" alt="" />
 						) : (
-							<i class="bi bi-person-circle"></i>
+							<i className="bi bi-person-circle"></i>
 						)}
-					</class>
+					</div>
 					<span className="text user-name">{auth.email}</span>
 				</div>
 				<button className="text btn more">
-					<i class="bi bi-chevron-down"></i>
+					<i className="bi bi-chevron-down"></i>
 				</button>
 			</div>
 		</nav>

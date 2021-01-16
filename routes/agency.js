@@ -24,7 +24,7 @@ router.post('/agency', async (req, res) => {
     // Extract agency's information
     const { name, address, wilaya, commune, phone } = req.body
     // Verify required information
-    if (name && address && phone) {
+    if (name && wilaya && commune && phone) {
         // Create new agency with given information
         const agency = await Agency.create({
             name, address, wilaya, commune, phone
@@ -47,7 +47,7 @@ router.put('/agency/:id', async (req, res) => {
         // Extract agency's information
         const { name, address, wilaya, commune, phone } = req.body
         // Check that there is at least only one property is not null or undefined
-        if (name || address || wilaya || commune || phone) {
+        if (name || wilaya || commune || phone) {
             // Construct object containing properties that going to be changed
             const changes = {}
             name && (changes.name = name)

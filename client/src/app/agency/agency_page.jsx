@@ -7,12 +7,15 @@ import React, {
 } from "react";
 import { format } from "date-fns";
 import { authContext } from "../../auth_context";
+import SelectDropdown from "../../components/select_dropdown";
 import jquery from "jquery";
 
 import "./agency_page.scss";
 import { API } from "./agency_api";
 
 const api = new API();
+
+/***********************************************************************************************************************/
 
 const Agency = ({
 	name,
@@ -59,6 +62,8 @@ const Agency = ({
 		</tr>
 	);
 };
+
+/***********************************************************************************************************************/
 
 const Modal = ({
 	agency = {},
@@ -117,6 +122,10 @@ const Modal = ({
 	);
 
 	useEffect(() => {
+		commune && wilaya && setAddress(`${commune}, ${wilaya}`);
+	}, [wilaya, commune]);
+
+	useEffect(() => {
 		if (show) {
 			setName(agency?.name ?? "");
 			setAddress(agency?.address ?? "");
@@ -157,7 +166,7 @@ const Modal = ({
 							</button>
 						</div>
 						<div className="modal-body">
-							<div class="form-group">
+							<div className="form-group">
 								<label>Name</label>
 								<input
 									type="text"
@@ -169,20 +178,8 @@ const Modal = ({
 									onChange={(e) => setName(e.currentTarget.value)}
 								/>
 							</div>
-							<div class="form-group">
-								<label>Address</label>
-								<input
-									type="text"
-									className={`form-control${
-										address.length === 0 ? " is-invalid" : " is-valid"
-									}`}
-									value={address}
-									required
-									onChange={(e) => setAddress(e.currentTarget.value)}
-								/>
-							</div>
 
-							<div class="form-group">
+							<div className="form-group">
 								<label>Wilaya</label>
 								<input
 									type="text"
@@ -190,10 +187,13 @@ const Modal = ({
 										wilaya.length === 0 ? " is-invalid" : " is-valid"
 									}`}
 									value={wilaya}
-									onChange={(e) => setWilaya(e.currentTarget.value)}
+									onChange={(e) => {
+										const value = e.currentTarget.value;
+										setWilaya(value);
+									}}
 								/>
 							</div>
-							<div class="form-group">
+							<div className="form-group">
 								<label>Commune</label>
 								<input
 									type="text"
@@ -201,10 +201,25 @@ const Modal = ({
 										commune.length === 0 ? " is-invalid" : " is-valid"
 									}`}
 									value={commune}
-									onChange={(e) => setCommune(e.currentTarget.value)}
+									onChange={(e) => {
+										const value = e.currentTarget.value;
+										setCommune(value);
+									}}
 								/>
 							</div>
-							<div class="form-group">
+							<div className="form-group">
+								<label>Address</label>
+								<input
+									type="text"
+									className={`form-control`}
+									/* className={`form-control${
+										address.length === 0 ? " is-invalid" : " is-valid"
+									}`} */
+									value={address}
+									onChange={(e) => setAddress(e.currentTarget.value)}
+								/>
+							</div>
+							<div className="form-group">
 								<label>Phone</label>
 								<input
 									type="text"
@@ -236,6 +251,8 @@ const Modal = ({
 	);
 };
 
+/***********************************************************************************************************************/
+
 const DeleteConfirmationModal = ({
 	agency,
 	show,
@@ -247,8 +264,7 @@ const DeleteConfirmationModal = ({
 		async (e) => {
 			e.preventDefault();
 			try {
-				const data = await api.remove(agency._id);
-				console.log(data);
+				await api.remove(agency._id);
 				onAgencyDeleted(agency._id);
 			} catch (err) {
 				console.log(err);
@@ -308,6 +324,8 @@ const DeleteConfirmationModal = ({
 	);
 };
 
+/***********************************************************************************************************************/
+
 const AgencyPage = ({}) => {
 	const [agencies, setAgencies] = useState([]);
 	const [showModal, setShowModal] = useState(false);
@@ -356,7 +374,9 @@ const AgencyPage = ({}) => {
 				agency={selectedAgency}
 				show={showConfModal}
 				onHidden={() => setShowConfModal(false)}
-				onAgencyDeleted={() => {}}
+				onAgencyDeleted={(id) =>
+					setAgencies(agencies.filter(({ _id }) => _id !== id))
+				}
 			/>
 			<div className="page agency-page">
 				<div className="header">
@@ -364,14 +384,15 @@ const AgencyPage = ({}) => {
 						Agencies
 						<div className="sub">{agencies.length} Agencies</div>
 					</div>
-					<div className="filter-input">
+					<SelectDropdown placeholder="Filter by company, commune,..." />
+					{/* <div className="filter-input">
 						<i className="bi bi-funnel"></i>
-						<select className="form-control">
-							<option className="placeholder" value="" disabled selected hidden>
+						<select className="form-control" defaultValue="0">
+							<option className="placeholder" value="0" disabled>
 								Filter by company, commune,...
 							</option>
 						</select>
-					</div>
+					</div> */}
 					<div className="search-input">
 						<input
 							className="form-control"
